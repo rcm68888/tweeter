@@ -8,6 +8,7 @@
 #site-header h2 {
   display: flex;
   justify-content: center;
+  color: aqua
 }
 
 header#site-header.site-header {
@@ -15,6 +16,6 @@ header#site-header.site-header {
 }
 
 header#site-header.site-header {
-  background-color: #5c4a00;
-  background-image: url("https://www.transparenttextures.com/patterns/black-orchid.png");
+  background-color: #473300;
+  background-image: url("https://www.transparenttextures.com/patterns/black-thread.png");
 }

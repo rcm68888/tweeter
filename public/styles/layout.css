@@ -19,7 +19,7 @@ div {
  * Global layout stuff
  */
 
-body {
+*body {
   color: #545149;
   background-color: #f4f1ec;
   font-family: 'Bungee', sans-serif;
