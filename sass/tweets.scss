@@ -1,0 +1,30 @@
+.all-tweets {
+  display: block;
+  border: solid purple;
+  background-color: seashell;
+  width: webkit-fill-available;
+  border-bottom: solid black;
+}
+
+.make-flex {
+  display: flex;
+  justify-content: flex-start;
+}
+.resize-image {
+  width: 30%;
+}
+footer {
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.hover-class {
+  display: none;
+  margin-left: auto;
+}
+
+#all-tweets article:hover .hover-class {
+  display:flex;
+  
+}

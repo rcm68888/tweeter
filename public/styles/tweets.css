@@ -10,9 +10,11 @@
   display: flex;
   justify-content: flex-start;
 }
+
 .resize-image {
   width: 30%;
 }
+
 footer {
   margin-bottom: 10px;
   display: flex;
@@ -25,6 +27,5 @@ footer {
 }
 
 #all-tweets article:hover .hover-class {
-  display:flex;
-  
+  display: flex;
 }

@@ -1,0 +1,36 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  height: 120px;
+  width: 100%;
+  background-color: #808000;
+  color: #FFFFFF;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar .logo {
+  font-family: 'Bungee', sans-serif;
+  margin: 1.5em;
+  display: flex;
+  align-items: center;
+  font-size: 30px;
+}
+
+.navbar .compose {
+  font-family: 'Bungee', sans-serif;
+  margin: 1.5em;
+}
+
+.navbar .compose:hover {
+  cursor: pointer;
+}
+
+.fa .fa-angle-double-down {
+  color: black;
+}
+.fa .fa-angle-double-down:hover {
+  color: white;
+}
