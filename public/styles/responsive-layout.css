@@ -1,4 +1,4 @@
-@media only screen and (min-width: 1024px) {
+@media only screen and (min-width: 2000px) {
 
   article {
     opacity: 0.9;
@@ -55,5 +55,11 @@
 
   .new-tweet {
     width: 600px;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .navbar .compose {
+    font-size: 15px
   }
 }
