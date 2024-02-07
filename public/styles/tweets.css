@@ -80,3 +80,15 @@ article.tweet:hover > header > h4 {
 article.tweet:hover > header > div.user {
   opacity: 1;
 }
+
+.fa-flag:hover{
+  color:rgb(214, 165, 31);
+}
+
+.fa-retweet:hover{
+  color:rgb(214, 165, 31);
+}
+
+.fa-heart:hover {
+  color:rgb(214, 165, 31);
+}
