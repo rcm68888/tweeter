@@ -1,16 +1,19 @@
-const updateCounter = (counterPassed) => {
-  $( 'span.counter ').text(140 - counterPassed);
-}
-
 $(document).ready(function() {
-  let charCounter = $(this).val().length;
-  $( '.new-tweet textarea' ).on('input', function() {
-    charCounter = $(this).val().length;
-    updateCounter(charCounter);
-    if (charCounter > 140) {
-      $( ' span.counter ').addClass(' over-limit ');
+  console.log('The document is ready!');
+
+  //makes character counter a live count of text chars in textarea
+  $('.tweet-text').on('input', function(e) {
+    let charCount = $(this).val().length;
+    let remainingChars = 140 - charCount;
+
+    //dom traversal targeting of .counter value
+    let counter = $(this).parent().next('div').children('.counter');
+    counter.text(remainingChars);
+
+    if (remainingChars < 0) {
+      counter.addClass('redText');
     } else {
-      $(' span.counter ').removeClass(' over-limit ');
+      counter.removeClass('redText');
     }
   });
 });

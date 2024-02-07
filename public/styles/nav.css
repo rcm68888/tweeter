@@ -1,37 +1,60 @@
-.navbar {
-  position: fixed;
-  top: 0;
-  height: 120px;
-  width: 100%;
-  background-color: #808000;
-  color: #FFFFFF;
-  z-index: 1000;
+nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 120px;
+  background: #40a184;
+  color: #ffffff;
+  padding: 1.5em;
+  position: fixed;
+  top: 0%;
+  z-index: 1;
+  width: 100%;
 }
 
-.navbar .logo {
+nav > span {
   font-family: "Bungee", sans-serif;
-  margin: 1.5em;
+  font-size: 2em;
+}
+
+.writeTweet {
+  padding: 10px;
   display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  font-size: 30px;
+  align-content: center;
+  font-size: 1em;
+  transition: 0.1s;
 }
 
-.navbar .compose {
-  font-family: "Bungee", sans-serif;
-  margin: 1.5em;
+.writeTweet:hover {
+  margin-bottom: 10px;
+}
+.writeTweet:hover > .arrow {
+  animation: MoveUpDown 1s linear infinite;
+  margin-top: 10px;
+}
+.writeTweet:active {
+  background-position: 0 10%;
+  margin-bottom: 0;
 }
 
-.navbar .compose:hover {
-  cursor: pointer;
+.bold {
+  font-weight: 600;
 }
-
-.fa .fa-angle-double-down {
-  color: black;
+.arrow {
+  margin-top: 10px;
+  font-size: 20px;
+  color: red;
+  animation: MoveUpDown 1s linear 2;
 }
-
-.fa .fa-angle-double-down:hover {
-  color: white;
+@keyframes MoveUpDown {
+  0%,
+  50% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }

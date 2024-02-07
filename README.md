@@ -6,8 +6,7 @@ This repository is the starter code for the project: Students will fork and clon
 
 # Screenshots
 
-!["Landing Page"](https://github.com/rcm68888/tweeter/blob/master/screenshots/TweeterLP.PNG)
-!["Desktop View"](https://github.com/rcm68888/tweeter/blob/master/screenshots/TweeterDT.PNG)
+!["Desktop View"](https://github.com/rcm68888/tweeter/blob/master/screenshots/TweeterDT.PNG)!["Tablet View"](https://github.com/rcm68888/tweeter/blob/master/screenshots/TweeterTablet.PNG)
 !["Mobile View"](https://github.com/rcm68888/tweeter/blob/master/screenshots/TweeterSP.PNG)
 
 ## Getting Started

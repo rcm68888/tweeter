@@ -1,21 +1,15 @@
-.site-header {
-  height: 400px;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-#site-header h2 {
-  display: flex;
-  justify-content: center;
-  color: aqua;
-}
-
-header#site-header.site-header {
+body > header {
   margin-top: 120px;
+  display: flex;
+  height: 400px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  background-color: #df8d41;
+  background-image: url("https://www.transparenttextures.com/patterns/black-thread.png");
 }
 
-header#site-header.site-header {
-  background-color: #473300;
-  background-image: url("https://www.transparenttextures.com/patterns/black-thread.png");
+header > div > h2 {
+  margin-top: 0px;
 }

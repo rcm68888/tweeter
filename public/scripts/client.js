@@ -4,110 +4,106 @@
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
  */
 
-const createTweetElement = function(tweet) {
-  let tweetArticle = $('<article>');
-  let tweetHeader = $('<header>').addClass('make-flex');
-  let tweetFooter = $('<footer>');
-  tweetHeader.append($('<img>').attr("src", tweet.user.avatars));
-  tweetHeader.append($('<span>').text(tweet.user.name));
-  tweetHeader.append($('<span>').addClass('hover-class').text(tweet.user.handle));
-  tweetArticle.append($(tweetHeader));
-  tweetArticle.append($('<p>').addClass('stay-inside-text').text(tweet.content.text));
-  tweetFooter.append($('<span>').addClass('time')
-  .append($('<span>').text(`${timeSinceTweeted(new Date(tweet.created_at))}`)));
-  if (tweet.user.name === 'Descartes') {
-    tweetFooter.append($('<span>')).text(`370 years ago`);
-  } else if (tweet.user.name === 'Newton') {
-    tweetFooter.append($('<span>')).text(`293 years ago`);
-  } 
-  tweetFooter.append($('<span>').addClass('icons')
-  .append($('<i>').addClass('fa fa-flag'))
-  .append($('<i>').addClass('fa fa-retweet'))
-  .append($('<i>').addClass('fa fa-heart')));
-  tweetArticle.append($(tweetFooter));
-  // above I am appending the header, body and footer to tweetArticle and returning it below
-  return tweetArticle;
+const createTweetElement = function(data) {
+  let $tweet = $(`
+  <article class="tweet">
+    <header>
+      <div class="user">
+        <img
+          src="${escape(data.user.avatars)}"
+          alt="">
+        <p>${escape(data.user.name)}</p>
+      </div>
+      <h4>${escape(data.user.handle)}</h4>
+    </header>
+    <p>${escape(data.content.text)}</p>
+    <footer>
+      <span>${escape(timeSinceTweet(data.created_at))}</span>
+      <div>
+        <i class="fas fa-flag"></i>
+        <i class="fas fa-retweet"></i>
+        <i class="fas fa-heart"></i>
+      </div>
+    </footer>
+  </article>
+  `);
+  return $tweet;
 };
 
 // calculating time since tweets were created when the tweet button is pressed
-const timeSinceTweeted = function(time) {
-  var date = new Date(time),
-		diff = (((new Date()).getTime() - date.getTime()) / 1000),
-		day_diff = Math.floor(diff / 86400);
-			
-	if ( isNaN(day_diff) || day_diff < 0 || day_diff >= 31 )
-		return;
-			
-	return day_diff == 0 && (
-			diff < 60 && "just now" ||
-			diff < 120 && "1 minute ago" ||
-			diff < 3600 && Math.floor( diff / 60 ) + " minutes ago" ||
-			diff < 7200 && "1 hour ago" ||
-			diff < 86400 && Math.floor( diff / 3600 ) + " hours ago") ||
-		day_diff == 1 && "Yesterday" ||
-		day_diff < 7 && day_diff + " days ago" ||
-		day_diff < 31 && Math.ceil( day_diff / 7 ) + " weeks ago";
+const timeSinceTweet = (unix) => {
+  return moment(unix).fromNow();
+};
+
+//escape function for safe user input
+const escape = function(str) {
+  let div = document.createElement('div');
+  div.appendChild(document.createTextNode(str));
+  return div.innerHTML;
 };
 
 // shows tweets on app page
-const renderTweets = function(tweet) {
-  const tweetsContainer = $('.all-tweets');
-  tweetsContainer.empty();
-  tweet.forEach((tweet) => {
-    tweetsContainer.prepend(createTweetElement(tweet));
-  });
+const renderTweet = function(data) {
+  //empties container as to not duplicate tweets
+  $('#tweets-container').empty();
+  for (let tweet of data) {
+    $('#tweets-container').prepend(createTweetElement(tweet));
+  }
 };
+
 // gets the tweets from the /tweets to pass them to render
 const loadTweets = function() {
-  $.ajax({
-    url: '/tweets',
-    method: 'GET',
-    success: function(tweetyTweets) {
-      renderTweets(tweetyTweets);
-    }
-  });
-};
-
-// Toggle the compose tweet textarea on and off
-const toggleComposeTweet = function() {
-  $(".compose").click( (event) => {
-    event.stopPropagation();
-    $(".new-tweet").toggle(100, () => {
-      $("#new-tweet-textarea").focus();
-    });
-  });
-};
-
-$(document).ready(() => {
-  $('#new-tweet-textarea').val('');
-  $('.form-class').submit((event) => {
-    event.preventDefault();
-    $(".new-tweet .display-error").css("visibility", "hidden");
-    let text = $('#new-tweet-textarea').val();
-    const tweetLength = text.length;
-    // performing validation for input
-    if (!text) {
-      $(".new-tweet .display-error").html("No tweet content!");
-      $(".new-tweet .display-error").css("visibility", "visible").addClass("danger-colour");
-      return; // block form submission when no content
-    }
-    if (tweetLength > 140) {
-      $(".new-tweet .display-error").html("Tweet over the character limit!");
-      $(".new-tweet .display-error").css("visibility", "visible").addClass("danger-colour");
-      return; // block form submission when content over limit
-    }
-
-    $.ajax({
-      url: '/tweets/',
-      method: 'POST',
-      data: $('#new-tweet-textarea').serialize()
+  $.ajax('/tweets', { method: 'GET' })
+    .then((tweets) => {
+      renderTweet(tweets);
     })
-    .then((res) => {
-      loadTweets();
+    .catch((err) => {
+      console.log("There was an ERROR ", err);
     });
-    
-    $('#new-tweet-textarea').val('');
-  });
-  toggleComposeTweet();
-  loadTweets();
+};
+
+//on submit callback function - handles ajax post requests on submit and form validation
+const submitTweetPost = function(event) {
+  event.preventDefault();
+
+  //form validation
+  $('.errorText').slideUp(400).text('');
+
+  if (!$(this).children().find('textarea').val()) {
+    return $('.errorText').text('Please enter a valid tweet').slideDown();
+
+  }
+  if ($(this).children().find('textarea').val().length > 140) {
+    return $('.errorText').text('Your Tweet exceeds the maximum characters').slideDown();
+  }
+
+  //tweet submission to database
+  console.log('tweet submitted, sending to database');
+  $.ajax('/tweets', {
+    method: 'POST',
+    data: $(this).serialize()
+  })
+    .then(function(tweet) {
+      //dynamically render new tweets after post, instead of refreshing
+      loadTweets();
+      // could also use location.reload() apparently
+    })
+    .catch((err) => {
+      console.log('There was an error', err);
+    });
+
+  //clear text area
+  $(this).children().find('textarea').val('');
+  //reset counter
+  $('.counter').text(140);
+};
+
+//loads initial tweets on page load
+loadTweets();
+
+$(document).ready(function() {
+  console.log('doc is ready');
+
+  $('form.tweetSubmit').on('submit', submitTweetPost);
+
 });

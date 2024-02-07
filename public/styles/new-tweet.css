@@ -1,51 +1,59 @@
-.submit-tweet {
-  font-family: "Bungee", sans-serif;
-  background-color: #4056A1;
-  color: #FFFFFF;
-  border: 0;
-}
+.new-tweet {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
 
-.underline-hummer {
-  border-bottom: solid white;
-  width: -webkit-fill-available;
-  margin: 0 1.5em;
+  margin-top: 2em;
+  margin-bottom: 1em;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
 }
-
-.submit-group {
+.newTweetTop {
   display: flex;
-  justify-content: space-between;
-  margin: 0 1.5em;
+  flex-direction: column;
+  border-bottom: 5px solid #5f5c53;
+  font-weight: 600;
 }
-
-.counter {
-  font-family: "Bungee", sans-serif;
-}
-
-.over-limit, .danger-colour {
-  color: #ff1a1a;
-  font-family: "Bungee", sans-serif;
-}
-
-section.new-tweet {
-  background-color: whitesmoke;
-  margin: 30px 0;
-}
-
-textarea {
+.newTweetTop > textarea {
+  height: 40px;
+  color: #5f5c53;
+  background-color: transparent;
   border: none;
+  resize: none;
+  outline: none;
 }
 
-.stay-inside-text {
-  white-space: normal;
-  overflow: hidden;
+.newTweetBottom {
+  font-family: "Bungee";
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 10px;
+  width: 100%;
 }
 
-.time {
-  border-bottom: purple;
-  margin-bottom: 1px;
+.newTweetBottom > button {
+  background-color: rgb(204, 137, 49);
+  font-size: 1em;
+  color: #ffffff;
+  border: 0;
+  height: 2.5rem;
+  width: 7rem;
 }
 
-article {
-  border-bottom: purple solid 3px;
-  margin-bottom: 2px;
+.redText {
+  color: red;
+}
+
+.errorText {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  display: none;
+  color: red;
+  font-weight: 600;
+  font-style: italic;
+  margin-bottom: 10px;
 }
