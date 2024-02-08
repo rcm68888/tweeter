@@ -31,8 +31,8 @@ const createTweetElement = function(data) {
 };
 
 // calculating time since tweets were created when the tweet button is pressed
-const timeSinceTweet = (unix) => {
-  return moment(unix).fromNow();
+const timeSinceTweet = (timeTweeted) => {
+  return timeago.format(timeTweeted);
 };
 
 //escape function for safe user input
